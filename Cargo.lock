@@ -1317,7 +1317,7 @@ dependencies = [
 [[package]]
 name = "whiskers_palette_rs"
 version = "1.0.0"
-source = "git+https://github.com/Whiskers-Color-Scheme/whiskers-palette-rs#7d1718216da5393499e7071066d439887b6fb153"
+source = "git+https://github.com/Whiskers-Color-Scheme/whiskers-palette-rs#1ded5c3a77fd86a5bfd310d079a7798883d432ce"
 dependencies = [
  "serde",
  "serde_json",
