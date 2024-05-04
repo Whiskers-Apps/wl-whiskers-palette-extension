@@ -352,39 +352,39 @@ pub fn handle_results(context: Context) {
     }
 
     if matcher
-        .fuzzy_match("NeutralFor", &search.search_text)
+        .fuzzy_match("NeutralFour", &search.search_text)
         .is_some()
     {
         let panther_color = match color_type.as_str() {
-            "hex" => &panther_palette.neutral_for.hex,
-            "rgb" => &panther_palette.neutral_for.rgb.rgb,
-            "hsl" => &panther_palette.neutral_for.hsl.hsl,
+            "hex" => &panther_palette.neutral_four.hex,
+            "rgb" => &panther_palette.neutral_four.rgb.rgb,
+            "hsl" => &panther_palette.neutral_four.hsl.hsl,
             _ => "",
         };
 
         let tiger_color = match color_type.as_str() {
-            "hex" => &tiger_palette.neutral_for.hex,
-            "rgb" => &tiger_palette.neutral_for.rgb.rgb,
-            "hsl" => &tiger_palette.neutral_for.hsl.hsl,
+            "hex" => &tiger_palette.neutral_four.hex,
+            "rgb" => &tiger_palette.neutral_four.rgb.rgb,
+            "hsl" => &tiger_palette.neutral_four.hsl.hsl,
             _ => "",
         };
 
         results.push(WhiskersResult::TitleAndText(
             TitleAndText::new(
-                "Panther NeutralFor",
+                "Panther NeutralFour",
                 panther_color,
                 Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
             )
-            .icon(get_icon("panther-neutral-for")),
+            .icon(get_icon("panther-neutral-four")),
         ));
 
         results.push(WhiskersResult::TitleAndText(
             TitleAndText::new(
-                "Tiger NeutralFor",
+                "Tiger NeutralFour",
                 tiger_color,
                 Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
             )
-            .icon(get_icon("tiger-neutral-for")),
+            .icon(get_icon("tiger-neutral-four")),
         ));
     }
 
@@ -645,39 +645,39 @@ pub fn handle_results(context: Context) {
     }
 
     if matcher
-        .fuzzy_match("TextFor", &search.search_text)
+        .fuzzy_match("TextFour", &search.search_text)
         .is_some()
     {
         let panther_color = match color_type.as_str() {
-            "hex" => &panther_palette.text_for.hex,
-            "rgb" => &panther_palette.text_for.rgb.rgb,
-            "hsl" => &panther_palette.text_for.hsl.hsl,
+            "hex" => &panther_palette.text_four.hex,
+            "rgb" => &panther_palette.text_four.rgb.rgb,
+            "hsl" => &panther_palette.text_four.hsl.hsl,
             _ => "",
         };
 
         let tiger_color = match color_type.as_str() {
-            "hex" => &tiger_palette.text_for.hex,
-            "rgb" => &tiger_palette.text_for.rgb.rgb,
-            "hsl" => &tiger_palette.text_for.hsl.hsl,
+            "hex" => &tiger_palette.text_four.hex,
+            "rgb" => &tiger_palette.text_four.rgb.rgb,
+            "hsl" => &tiger_palette.text_four.hsl.hsl,
             _ => "",
         };
 
         results.push(WhiskersResult::TitleAndText(
             TitleAndText::new(
-                "Panther TextFor",
+                "Panther TextFour",
                 panther_color,
                 Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
             )
-            .icon(get_icon("panther-text-for")),
+            .icon(get_icon("panther-text-four")),
         ));
 
         results.push(WhiskersResult::TitleAndText(
             TitleAndText::new(
-                "Tiger TextFor",
+                "Tiger TextFour",
                 tiger_color,
                 Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
             )
-            .icon(get_icon("tiger-text-for")),
+            .icon(get_icon("tiger-text-four")),
         ));
     }
 
