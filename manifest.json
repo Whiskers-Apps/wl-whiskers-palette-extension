@@ -1,10 +1,6 @@
 {
   "id": "lighttigerxiv/whiskers-palette",
   "name": "Whiskers Palette",
-  "version_name": "1.0.0",
-  "version_code": 1,
-  "description": "An extension wich returns the whiskers palette",
-  "os": ["*"],
-  "keyword": "wp",
-  "settings": []
+  "description": "An extension to get the whiskers color scheme palette",
+  "keyword": "wp"
 }

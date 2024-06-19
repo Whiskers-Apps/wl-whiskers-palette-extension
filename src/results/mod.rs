@@ -1,17 +1,18 @@
 use fuzzy_matcher::{skim::SkimMatcherV2, FuzzyMatcher};
+
 use whiskers_launcher_rs::{
-    actions::{Action, CopyToClipboard},
-    api::extensions::{send_extension_results, Context},
-    results::{TitleAndText, WhiskersResult},
+    action::{Action, CopyAction},
+    api::extensions::{send_response, ExtensionRequest},
+    result::{TextResult, WLResult},
     utils::get_search,
 };
 use whiskers_palette_rs::palette::{get_panther_palette, get_tiger_palette};
 
 use crate::icons::get_icon;
 
-pub fn handle_results(context: Context) {
-    let search = get_search(&context.search_text.unwrap());
-    let mut results = Vec::<WhiskersResult>::new();
+pub fn handle_results(request: ExtensionRequest) {
+    let search = get_search(&request.search_text.unwrap());
+    let mut results = Vec::<WLResult>::new();
     let matcher = SkimMatcherV2::default();
     let panther_palette = get_panther_palette();
     let tiger_palette = get_tiger_palette();
@@ -19,7 +20,7 @@ pub fn handle_results(context: Context) {
     let mut color_type = "hex".to_string();
 
     if search.keyword.is_none() && search.search_text.is_empty() {
-        send_extension_results(vec![]);
+        send_response(Vec::new());
     }
 
     if search.keyword.is_some() {
@@ -45,20 +46,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Panther Banana",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-banana")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Tiger Banana",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-banana")),
         ));
@@ -82,20 +81,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Panther Blueberry",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-blueberry")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Tiger Blueberry",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-blueberry")),
         ));
@@ -116,20 +113,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Panther Cherry",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-cherry")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Tiger Cherry",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-cherry")),
         ));
@@ -150,20 +145,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Panther Grape",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-grape")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Tiger Grape",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-grape")),
         ));
@@ -184,22 +177,17 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Panther Kiwi",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-kiwi")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger Kiwi",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
-            )
-            .icon(get_icon("tiger-kiwi")),
+        results.push(WLResult::new_text(
+            TextResult::new("Tiger Kiwi", Action::new_copy(CopyAction::new(tiger_color)))
+                .icon(get_icon("tiger-kiwi")),
         ));
     }
 
@@ -221,20 +209,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Panther Tangerine",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-tangerine")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Tiger Tangerine",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-tangerine")),
         ));
@@ -258,20 +244,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Panther Neutral",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-neutral")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Tiger Neutral",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-neutral")),
         ));
@@ -295,20 +279,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther NeutralTwo",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Neutral Two",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-neutral-two")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger NeutralTwo",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Neutral Two",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-neutral-two")),
         ));
@@ -332,20 +314,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther NeutralThree",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Neutral Three",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-neutral-three")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger NeutralThree",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Neutral Three",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-neutral-three")),
         ));
@@ -369,20 +349,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther NeutralFour",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Neutral Four",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-neutral-four")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger NeutralFour",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Neutral Four",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-neutral-four")),
         ));
@@ -406,20 +384,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther NeutralFive",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Neutral Five",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-neutral-five")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger NeutralFive",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Neutral Five",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-neutral-five")),
         ));
@@ -443,20 +419,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther NeutralSix",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Neutral Six",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-neutral-six")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger NeutralSix",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Neutral Six",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-neutral-six")),
         ));
@@ -480,20 +454,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther NeutralSeven",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Neutral Seven",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-neutral-seven")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger NeutralSeven",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Neutral Seven",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-neutral-seven")),
         ));
@@ -517,20 +489,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther NeutralEight",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Neutral Eight",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-neutral-eight")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger NeutralEight",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Neutral Eight",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-neutral-eight")),
         ));
@@ -551,22 +521,17 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
+        results.push(WLResult::new_text(
+            TextResult::new(
                 "Panther Text",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-text")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger Text",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
-            )
-            .icon(get_icon("tiger-text")),
+        results.push(WLResult::new_text(
+            TextResult::new("Tiger Text", Action::new_copy(CopyAction::new(tiger_color)))
+                .icon(get_icon("tiger-text")),
         ));
     }
 
@@ -588,20 +553,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther TextTwo",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Text Two",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-text-two")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger TextTwo",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Text Two",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-text-two")),
         ));
@@ -625,20 +588,18 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther TextThree",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Text Three",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-text-three")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger TextThree",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Text Three",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-text-three")),
         ));
@@ -662,24 +623,22 @@ pub fn handle_results(context: Context) {
             _ => "",
         };
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Panther TextFour",
-                panther_color,
-                Action::CopyToClipboard(CopyToClipboard::new(panther_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Panther Text Four",
+                Action::new_copy(CopyAction::new(panther_color)),
             )
             .icon(get_icon("panther-text-four")),
         ));
 
-        results.push(WhiskersResult::TitleAndText(
-            TitleAndText::new(
-                "Tiger TextFour",
-                tiger_color,
-                Action::CopyToClipboard(CopyToClipboard::new(tiger_color)),
+        results.push(WLResult::new_text(
+            TextResult::new(
+                "Tiger Text Four",
+                Action::new_copy(CopyAction::new(tiger_color)),
             )
             .icon(get_icon("tiger-text-four")),
         ));
     }
 
-    send_extension_results(results);
+    send_response(results);
 }
