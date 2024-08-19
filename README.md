@@ -1,7 +1,5 @@
-<div align="center">
 
-## Whiskers Palette Extension
-</div>
+<img src="banner.webp">
 
 ## How to install
 
